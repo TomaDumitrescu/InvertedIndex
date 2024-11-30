@@ -33,6 +33,7 @@ int main(int argc, char **argv)
     fin.getline(buffer, FILE_LEN);
     for (int i = 0; i < num_files; ++i) {
         fin.getline(buffer, FILE_LEN);
+        files->push_back(string(buffer));
 
         struct stat st;
         stat(buffer, &st);
@@ -50,9 +51,7 @@ int main(int argc, char **argv)
     for (id = 0; id < mappers + reducers; ++id) {
         if (id < mappers) {
             DIE(pthread_create(&threads[id], NULL, map, (void *) &map_args[id]), "pth_create");
-        }
-
-        if (id >= mappers) {
+        } else {
             DIE(pthread_create(&threads[id], NULL, reduce, (void *) &red_args[id - mappers]), "pth_create");
         }
     }
