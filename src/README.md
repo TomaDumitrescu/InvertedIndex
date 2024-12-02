@@ -75,9 +75,9 @@ Considerations:
 increasing the scalability
 
 4) Printing data in [a-z].txt files:
-This is done sequentially, after the natural barrier created by join(). For every letter ? from
-range a-z, the file "?.txt" is created. The multiset ? is traversed to get the keys, so that
-the pairs (string, set<int>) are 2-criterium sorted, and for each key from the multiset, get
+This is done in parallel, after sorting in the reducer operation. For every letter ? from
+range red_start2, red_end_2, the file "?.txt" is created. The multiset ? is traversed to get the keys,
+so that the pairs (string, set<int>) are 2-criterium sorted, and for each key from the multiset, get
 the id sets from global_maps[? - ascii_int('a')], where ascii_int('a') = 97.
 
 ## Optimizations:
@@ -85,18 +85,19 @@ the id sets from global_maps[? - ascii_int('a')], where ascii_int('a') = 97.
 dimensions (taken eventually using sys/stats.h in O(1))
 2) preferred stack allocation instead of heap
 3) built-in data structures like vector, unordered_map, queue
-4) ++i instead of i++
+4) parallel file writing using reducers
 5) passing arrays of dictionaries or multisets as pointers to avoid unnecessary copy
 6) minimize function calls, so where a function is reasonably long, change a function
 call with actual code; also inline for print_data to eliminate overhead
 7) instead of checking whether strlen(word) > 0, just verify word[0] != '\0'
 8) integer operations instead of char ascii code operations
 9) unordered_map instead of map for the a-z dictionaries to have O(1) time operations
-10) copying ".txt" to the file char array, char by char, instead of using strcpy to
+10) mutexes on medium critical sections to avoid frequent context-switches
 avoid function calls
 
 ## Testing:
-After running with docker 10 times, the average score was [].
+After running with docker 10 times, the average score was 84/84, so maximum score appeared
+for scalability and correctness every time.
 
 ## Bibliography:
 https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf
