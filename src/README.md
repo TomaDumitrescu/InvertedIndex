@@ -96,14 +96,8 @@ call with actual code; also inline for print_data to eliminate overhead
 avoid function calls
 
 ## Testing:
-After running ./checker.sh 52 times, the following scores were obtained:
-84 84 84 84 84 84 84 68 76 76 84 76 76 76 84 84 84 84 84 60 84 76 84 44 76 84
-64 84 68 60 76 84 84 84 84 44 84 84 76 84 84 84 68 68 60 84 44 76 36 68 76 84
+After running with docker, the following scores were obtained:
 
-Those variations are also caused by the testing environment (for example scheduling).
-
-Majority element: 84 (also the mode)
-Average: 75.77
 
 ## Bibliography:
 https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf
