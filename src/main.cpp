@@ -58,15 +58,16 @@ void *reduce_op(void *arg)
 
     // Waiting the mappers
     pthread_barrier_wait(r_arg->barrier);
+
+    // RW over the global dictionary by multiple threads
+    pthread_mutex_lock(r_arg->lock);
     for (int i = r_arg->start; i < r_arg->end; ++i) {
-        // RW over the global dictionary by multiple threads
-        pthread_mutex_lock(r_arg->lock);
         for (const auto& item: r_arg->local_maps[i]) {
             r_arg->global_maps[(int)(item.first[0]) - 97][item.first].insert(item.second.begin(),
                                                                             item.second.end());
         }
-        pthread_mutex_unlock(r_arg->lock);
     }
+    pthread_mutex_unlock(r_arg->lock);
 
     // Waiting the grouping
     pthread_barrier_wait(r_arg->a_barrier);
