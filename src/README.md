@@ -96,8 +96,7 @@ call with actual code; also inline for print_data to eliminate overhead
 avoid function calls
 
 ## Testing:
-After running with docker, the following scores were obtained:
-
+After running with docker 10 times, the average score was [].
 
 ## Bibliography:
 https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf
