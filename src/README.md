@@ -96,6 +96,7 @@ call with actual code; also inline for print_data to eliminate overhead
 avoid function calls
 
 ## Testing:
+
 After running with docker 10 times, the average score was 84/84, so maximum score appeared
 for scalability and correctness every time.
 
